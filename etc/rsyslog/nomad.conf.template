@@ -1,0 +1,4 @@
+if ( $programname startswith "nomad" ) then {
+    action(type="omfile" file="$ROOT_DIR/data/logs/nomad.log" flushOnTXEnd="off")
+    stop
+}

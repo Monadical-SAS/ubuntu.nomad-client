@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
+cd "$ROOT_DIR"
+
+# Setup configuration files
+source /etc/environments
+envsubst < config.env.template > config.env
+source config.env
+envsubst < etc/nomad/client.hcl.template > etc/nomad/client.hcl
+envsubst < etc/rsyslog/nomad.conf.template > etc/rsyslog/nomad.conf
+
+# Setup state directories
+mkdir -p data/nomad
+mkdir -p data/tmp
+
+# Install Nomad binary
+wget --continue "$NOMAD_DOWNLOAD_URL" -O "data/tmp/$NOMAD_RELEASE.zip"
+unzip "data/tmp/$NOMAD_RELEASE.zip" -d bin/
+rm "data/tmp/$NOMAD_RELEASE.zip"
+ln -f -s "$ROOT_DIR/bin/nomad" "/usr/local/bin/nomad"
+/usr/local/bin/nomad -autocomplete-install
+
+# Symlink config files into place
+mkdir -p /etc/nomad.d
+ln -f -s "$ROOT_DIR/etc/nomad/client.hcl" "/etc/nomad.d/client.hcl"
+ln -f -s "$ROOT_DIR/etc/rsyslog/nomad.conf" "/etc/rsyslog.d/nomad.conf"
+ln -f -s "$ROOT_DIR/etc/systemd/nomad.service" "/etc/systemd/system/nomad.service"
+
+systemctl restart rsyslog
+systemctl daemon-reload
+systemctl enable nomad
+systemctl start nomad
+
+nomad version
+nomad status
