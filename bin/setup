@@ -9,6 +9,7 @@ envsubst < config.env.template > config.env
 source config.env
 envsubst < etc/nomad/client.hcl.template > etc/nomad/client.hcl
 envsubst < etc/rsyslog/nomad.conf.template > etc/rsyslog/nomad.conf
+envsubst < etc/systemd/nomad.service.template > etc/systemd/nomad.service
 
 # Setup state directories
 mkdir -p data/nomad

@@ -8,17 +8,16 @@ Hashicorp nomad setup for Ubuntu.
 - https://www.nomadproject.io/docs/configuration/index.html
 
 ```fish
-git clone https://github.com/Monadical-SAS/ubuntu.nomad-client /opt/ubuntu.nomad-client
-cd /opt/ubuntu.nomad-client
+cd /opt
+git clone https://github.com/Monadical-SAS/ubuntu.nomad-client
+cd ubuntu.nomad-client
 
-# Configure the installation
-nano config.env
-source config.env
-envsubst < etc/nomad/client.llhcl.template > etc/nomad/client.hcl
+# Run the setup script & tweak any necessary configuration
+./bin/setup
 nano etc/nomad/client.hcl
 
-# Then run the install & start nomad
-./bin/setup
+# Then restart it and check its status
+systemctl restart nomad
 systemctl status nomad
 nomad status
 ```
