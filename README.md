@@ -1,6 +1,6 @@
 # ubuntu.nomad-client
 
-Hashicorp nomad setup for Ubuntu.
+[Hashicorp Nomad](https://www.nomadproject.io/docs/) client agent setup for Ubuntu.
 
 - https://github.com/Monadical-SAS/ubuntu.nomad-client
 - https://github.com/hashicorp/nomad
