@@ -2,7 +2,7 @@
 
 [Hashicorp Nomad](https://www.nomadproject.io/docs/) client agent setup for Ubuntu.
 
-- https://github.com/Monadical-SAS/ubuntu.nomad-client
+- https://github.com/Monadical-SAS/zervice.nomad
 - https://github.com/hashicorp/nomad
 - https://github.com/jovandeginste/nomad-compose
 - https://www.nomadproject.io/docs/configuration/index.html
